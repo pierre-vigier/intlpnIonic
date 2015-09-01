@@ -1,0 +1,1091 @@
+$originalflagHeight: 64px !default;
+$originalflagWidth: 64px !default;
+$desiredflagHeight: 32px !default;
+$desiredflagWidth: 32px !default;
+$factor: $originalflagHeight / $desiredflagHeight;
+
+.icon-intlpn-flag {
+    width: $desiredflagWidth*1.5;
+}
+.icon-intlpn-flag:before {
+  content: '';
+  width: $desiredflagWidth;
+  height: $desiredflagHeight;
+  //box-shadow: 0px 0px 1px 0px #888;
+  //background-image: url("#{$flagsImagePath}#{$flagsImageName}.#{$flagsImageExtension}");
+  background-repeat: no-repeat;
+  // empty state
+  background-color: transparent;
+  //background-position: $flagWidth 0;
+  display: inline-block;
+  vertical-align:middle;
+}
+
+// hack for Nepal which is the only flag that is not square/rectangle, so it has transparency, so you can see the default grey behind it
+.icon-intlpn-flag.np:before {
+  background-color: transparent;
+}
+
+.icon-intlpn-flag, .ad, .ae, .af, .ag, .ai, .al, .am, .an, .ao, .aq, .ar, .as, .at, .au, .aw, .ax, .az, .ba, .bb, .bd, .be, .bf, .bg, .bh, .bi, .bj, .bl, .bm, .bn, .bo, .br, .bs, .bt, .bw, .by, .bz, .ca, .cc, .cd, .cf, .cg, .ch, .ci, .ck, .cl, .cm, .cn, .co, .cr, .cu, .cv, .cw, .cx, .cy, .cz, .de, .dj, .dk, .dm, .do, .dz, .ec, .ee, .eg, .eh, .er, .es, .et, .eu, .fi, .fj, .fk, .fm, .fo, .fr, .ga, .gb, .gd, .ge, .gg, .gh, .gi, .gl, .gm, .gn, .gq, .gr, .gs, .gt, .gu, .gw, .gy, .hk, .hn, .hr, .ht, .hu, .ic, .id, .ie, .il, .im, .in, .iq, .ir, .is, .it, .je, .jm, .jo, .jp, .ke, .kg, .kh, .ki, .km, .kn, .kp, .kr, .kw, .ky, .kz, .la, .lb, .lc, .li, .lk, .lr, .ls, .lt, .lu, .lv, .ly, .ma, .mc, .md, .me, .mf, .mg, .mh, .mk, .ml, .mm, .mn, .mo, .mp, .mq, .mr, .ms, .mt, .mu, .mv, .mw, .mx, .my, .mz, .na, .nc, .ne, .nf, .ng, .ni, .nl, .no, .np, .nr, .nu, .nz, .om, .pa, .pe, .pf, .pg, .ph, .pk, .pl, .pn, .pr, .ps, .pt, .pw, .py, .qa, .ro, .rs, .ru, .rw, .sa, .sb, .sc, .sd, .se, .sg, .sh, .si, .sk, .sl, .sm, .sn, .so, .sr, .ss, .st, .sv, .sy, .sz, .tc, .td, .tf, .tg, .th, .tj, .tk, .tl, .tm, .tn, .to, .tr, .tt, .tv, .tw, .tz, .ua, .ug, .us, .uy, .uz, .va, .vc, .ve, .vg, .vi, .vn, .vu, .wf, .ws, .ye, .yt, .za, .zm, .zw, ._abkhazia, ._basque-country, ._british-antarctic-territory, ._commonwealth, ._england, ._gosquared, ._kosovo, ._mars, ._nagorno-karabakh, ._nato, ._northern-cyprus, ._olympics, ._red-cross, ._scotland, ._somaliland, ._south-ossetia, ._united-nations, ._unknown, ._wales {
+
+//{.icon-intlpn-flag {
+    &:before {
+        background-image: url('../img/intlpn-flags.png');
+        background-repeat: no-repeat;
+        background-size: 64px/$factor 16640px/$factor;
+        height:64px/$factor;
+        width:64px/$factor;
+    }
+
+    &.none:before {
+        background-image:none;
+        background-color:#f8f8f8;
+        content: '?';
+        text-align: center;
+        vertical-align: middle;
+        line-height: $desiredflagHeight;
+        color: #999;
+        font-weight: bold;
+    }
+
+    &.ad:before {
+      background-position: 0 0;
+    }
+
+    &.ae:before {
+      background-position: 0 -64px/$factor;
+    }
+
+    &.af:before {
+      background-position: 0 -128px/$factor;
+    }
+
+    &.ag:before {
+      background-position: 0 -192px/$factor;
+    }
+
+    &.ai:before {
+      background-position: 0 -256px/$factor;
+    }
+
+    &.al:before {
+      background-position: 0 -320px/$factor;
+    }
+
+    &.am:before {
+      background-position: 0 -384px/$factor;
+    }
+
+    &.an:before {
+      background-position: 0 -448px/$factor;
+    }
+
+    &.ao:before {
+      background-position: 0 -512px/$factor;
+    }
+
+    &.aq:before {
+      background-position: 0 -576px/$factor;
+    }
+
+    &.ar:before {
+      background-position: 0 -640px/$factor;
+    }
+
+    &.as:before {
+      background-position: 0 -704px/$factor;
+    }
+
+    &.at:before {
+      background-position: 0 -768px/$factor;
+    }
+
+    &.au:before {
+      background-position: 0 -832px/$factor;
+    }
+
+    &.aw:before {
+      background-position: 0 -896px/$factor;
+    }
+
+    &.ax:before {
+      background-position: 0 -960px/$factor;
+    }
+
+    &.az:before {
+      background-position: 0 -1024px/$factor;
+    }
+
+    &.ba:before {
+      background-position: 0 -1088px/$factor;
+    }
+
+    &.bb:before {
+      background-position: 0 -1152px/$factor;
+    }
+
+    &.bd:before {
+      background-position: 0 -1216px/$factor;
+    }
+
+    &.be:before {
+      background-position: 0 -1280px/$factor;
+    }
+
+    &.bf:before {
+      background-position: 0 -1344px/$factor;
+    }
+
+    &.bg:before {
+      background-position: 0 -1408px/$factor;
+    }
+
+    &.bh:before {
+      background-position: 0 -1472px/$factor;
+    }
+
+    &.bi:before {
+      background-position: 0 -1536px/$factor;
+    }
+
+    &.bj:before {
+      background-position: 0 -1600px/$factor;
+    }
+
+    &.bl:before {
+      background-position: 0 -1664px/$factor;
+    }
+
+    &.bm:before {
+      background-position: 0 -1728px/$factor;
+    }
+
+    &.bn:before {
+      background-position: 0 -1792px/$factor;
+    }
+
+    &.bo:before {
+      background-position: 0 -1856px/$factor;
+    }
+
+    &.br:before {
+      background-position: 0 -1920px/$factor;
+    }
+
+    &.bs:before {
+      background-position: 0 -1984px/$factor;
+    }
+
+    &.bt:before {
+      background-position: 0 -2048px/$factor;
+    }
+
+    &.bw:before {
+      background-position: 0 -2112px/$factor;
+    }
+
+    &.by:before {
+      background-position: 0 -2176px/$factor;
+    }
+
+    &.bz:before {
+      background-position: 0 -2240px/$factor;
+    }
+
+    &.ca:before {
+      background-position: 0 -2304px/$factor;
+    }
+
+    &.cc:before {
+      background-position: 0 -2368px/$factor;
+    }
+
+    &.cd:before {
+      background-position: 0 -2432px/$factor;
+    }
+
+    &.cf:before {
+      background-position: 0 -2496px/$factor;
+    }
+
+    &.cg:before {
+      background-position: 0 -2560px/$factor;
+    }
+
+    &.ch:before {
+      background-position: 0 -2624px/$factor;
+    }
+
+    &.ci:before {
+      background-position: 0 -2688px/$factor;
+    }
+
+    &.ck:before {
+      background-position: 0 -2752px/$factor;
+    }
+
+    &.cl:before {
+      background-position: 0 -2816px/$factor;
+    }
+
+    &.cm:before {
+      background-position: 0 -2880px/$factor;
+    }
+
+    &.cn:before {
+      background-position: 0 -2944px/$factor;
+    }
+
+    &.co:before {
+      background-position: 0 -3008px/$factor;
+    }
+
+    &.cr:before {
+      background-position: 0 -3072px/$factor;
+    }
+
+    &.cu:before {
+      background-position: 0 -3136px/$factor;
+    }
+
+    &.cv:before {
+      background-position: 0 -3200px/$factor;
+    }
+
+    &.cw:before {
+      background-position: 0 -3264px/$factor;
+    }
+
+    &.cx:before {
+      background-position: 0 -3328px/$factor;
+    }
+
+    &.cy:before {
+      background-position: 0 -3392px/$factor;
+    }
+
+    &.cz:before {
+      background-position: 0 -3456px/$factor;
+    }
+
+    &.de:before {
+      background-position: 0 -3520px/$factor;
+    }
+
+    &.dj:before {
+      background-position: 0 -3584px/$factor;
+    }
+
+    &.dk:before {
+      background-position: 0 -3648px/$factor;
+    }
+
+    &.dm:before {
+      background-position: 0 -3712px/$factor;
+    }
+
+    &.do:before {
+      background-position: 0 -3776px/$factor;
+    }
+
+    &.dz:before {
+      background-position: 0 -3840px/$factor;
+    }
+
+    &.ec:before {
+      background-position: 0 -3904px/$factor;
+    }
+
+    &.ee:before {
+      background-position: 0 -3968px/$factor;
+    }
+
+    &.eg:before {
+      background-position: 0 -4032px/$factor;
+    }
+
+    &.eh:before {
+      background-position: 0 -4096px/$factor;
+    }
+
+    &.er:before {
+      background-position: 0 -4160px/$factor;
+    }
+
+    &.es:before {
+      background-position: 0 -4224px/$factor;
+    }
+
+    &.et:before {
+      background-position: 0 -4288px/$factor;
+    }
+
+    &.eu:before {
+      background-position: 0 -4352px/$factor;
+    }
+
+    &.fi:before {
+      background-position: 0 -4416px/$factor;
+    }
+
+    &.fj:before {
+      background-position: 0 -4480px/$factor;
+    }
+
+    &.fk:before {
+      background-position: 0 -4544px/$factor;
+    }
+
+    &.fm:before {
+      background-position: 0 -4608px/$factor;
+    }
+
+    &.fo:before {
+      background-position: 0 -4672px/$factor;
+    }
+
+    &.fr:before {
+      background-position: 0 -4736px/$factor;
+    }
+
+    &.ga:before {
+      background-position: 0 -4800px/$factor;
+    }
+
+    &.gb:before {
+      background-position: 0 -4864px/$factor;
+    }
+
+    &.gd:before {
+      background-position: 0 -4928px/$factor;
+    }
+
+    &.ge:before {
+      background-position: 0 -4992px/$factor;
+    }
+
+    &.gg:before {
+      background-position: 0 -5056px/$factor;
+    }
+
+    &.gh:before {
+      background-position: 0 -5120px/$factor;
+    }
+
+    &.gi:before {
+      background-position: 0 -5184px/$factor;
+    }
+
+    &.gl:before {
+      background-position: 0 -5248px/$factor;
+    }
+
+    &.gm:before {
+      background-position: 0 -5312px/$factor;
+    }
+
+    &.gn:before {
+      background-position: 0 -5376px/$factor;
+    }
+
+    &.gq:before {
+      background-position: 0 -5440px/$factor;
+    }
+
+    &.gr:before {
+      background-position: 0 -5504px/$factor;
+    }
+
+    &.gs:before {
+      background-position: 0 -5568px/$factor;
+    }
+
+    &.gt:before {
+      background-position: 0 -5632px/$factor;
+    }
+
+    &.gu:before {
+      background-position: 0 -5696px/$factor;
+    }
+
+    &.gw:before {
+      background-position: 0 -5760px/$factor;
+    }
+
+    &.gy:before {
+      background-position: 0 -5824px/$factor;
+    }
+
+    &.hk:before {
+      background-position: 0 -5888px/$factor;
+    }
+
+    &.hn:before {
+      background-position: 0 -5952px/$factor;
+    }
+
+    &.hr:before {
+      background-position: 0 -6016px/$factor;
+    }
+
+    &.ht:before {
+      background-position: 0 -6080px/$factor;
+    }
+
+    &.hu:before {
+      background-position: 0 -6144px/$factor;
+    }
+
+    &.ic:before {
+      background-position: 0 -6208px/$factor;
+    }
+
+    &.id:before {
+      background-position: 0 -6272px/$factor;
+    }
+
+    &.ie:before {
+      background-position: 0 -6336px/$factor;
+    }
+
+    &.il:before {
+      background-position: 0 -6400px/$factor;
+    }
+
+    &.im:before {
+      background-position: 0 -6464px/$factor;
+    }
+
+    &.in:before {
+      background-position: 0 -6528px/$factor;
+    }
+
+    &.iq:before {
+      background-position: 0 -6592px/$factor;
+    }
+
+    &.ir:before {
+      background-position: 0 -6656px/$factor;
+    }
+
+    &.is:before {
+      background-position: 0 -6720px/$factor;
+    }
+
+    &.it:before {
+      background-position: 0 -6784px/$factor;
+    }
+
+    &.je:before {
+      background-position: 0 -6848px/$factor;
+    }
+
+    &.jm:before {
+      background-position: 0 -6912px/$factor;
+    }
+
+    &.jo:before {
+      background-position: 0 -6976px/$factor;
+    }
+
+    &.jp:before {
+      background-position: 0 -7040px/$factor;
+    }
+
+    &.ke:before {
+      background-position: 0 -7104px/$factor;
+    }
+
+    &.kg:before {
+      background-position: 0 -7168px/$factor;
+    }
+
+    &.kh:before {
+      background-position: 0 -7232px/$factor;
+    }
+
+    &.ki:before {
+      background-position: 0 -7296px/$factor;
+    }
+
+    &.km:before {
+      background-position: 0 -7360px/$factor;
+    }
+
+    &.kn:before {
+      background-position: 0 -7424px/$factor;
+    }
+
+    &.kp:before {
+      background-position: 0 -7488px/$factor;
+    }
+
+    &.kr:before {
+      background-position: 0 -7552px/$factor;
+    }
+
+    &.kw:before {
+      background-position: 0 -7616px/$factor;
+    }
+
+    &.ky:before {
+      background-position: 0 -7680px/$factor;
+    }
+
+    &.kz:before {
+      background-position: 0 -7744px/$factor;
+    }
+
+    &.la:before {
+      background-position: 0 -7808px/$factor;
+    }
+
+    &.lb:before {
+      background-position: 0 -7872px/$factor;
+    }
+
+    &.lc:before {
+      background-position: 0 -7936px/$factor;
+    }
+
+    &.li:before {
+      background-position: 0 -8000px/$factor;
+    }
+
+    &.lk:before {
+      background-position: 0 -8064px/$factor;
+    }
+
+    &.lr:before {
+      background-position: 0 -8128px/$factor;
+    }
+
+    &.ls:before {
+      background-position: 0 -8192px/$factor;
+    }
+
+    &.lt:before {
+      background-position: 0 -8256px/$factor;
+    }
+
+    &.lu:before {
+      background-position: 0 -8320px/$factor;
+    }
+
+    &.lv:before {
+      background-position: 0 -8384px/$factor;
+    }
+
+    &.ly:before {
+      background-position: 0 -8448px/$factor;
+    }
+
+    &.ma:before {
+      background-position: 0 -8512px/$factor;
+    }
+
+    &.mc:before {
+      background-position: 0 -8576px/$factor;
+    }
+
+    &.md:before {
+      background-position: 0 -8640px/$factor;
+    }
+
+    &.me:before {
+      background-position: 0 -8704px/$factor;
+    }
+
+    &.mf:before {
+      background-position: 0 -8768px/$factor;
+    }
+
+    &.mg:before {
+      background-position: 0 -8832px/$factor;
+    }
+
+    &.mh:before {
+      background-position: 0 -8896px/$factor;
+    }
+
+    &.mk:before {
+      background-position: 0 -8960px/$factor;
+    }
+
+    &.ml:before {
+      background-position: 0 -9024px/$factor;
+    }
+
+    &.mm:before {
+      background-position: 0 -9088px/$factor;
+    }
+
+    &.mn:before {
+      background-position: 0 -9152px/$factor;
+    }
+
+    &.mo:before {
+      background-position: 0 -9216px/$factor;
+    }
+
+    &.mp:before {
+      background-position: 0 -9280px/$factor;
+    }
+
+    &.mq:before {
+      background-position: 0 -9344px/$factor;
+    }
+
+    &.mr:before {
+      background-position: 0 -9408px/$factor;
+    }
+
+    &.ms:before {
+      background-position: 0 -9472px/$factor;
+    }
+
+    &.mt:before {
+      background-position: 0 -9536px/$factor;
+    }
+
+    &.mu:before {
+      background-position: 0 -9600px/$factor;
+    }
+
+    &.mv:before {
+      background-position: 0 -9664px/$factor;
+    }
+
+    &.mw:before {
+      background-position: 0 -9728px/$factor;
+    }
+
+    &.mx:before {
+      background-position: 0 -9792px/$factor;
+    }
+
+    &.my:before {
+      background-position: 0 -9856px/$factor;
+    }
+
+    &.mz:before {
+      background-position: 0 -9920px/$factor;
+    }
+
+    &.na:before {
+      background-position: 0 -9984px/$factor;
+    }
+
+    &.nc:before {
+      background-position: 0 -10048px/$factor;
+    }
+
+    &.ne:before {
+      background-position: 0 -10112px/$factor;
+    }
+
+    &.nf:before {
+      background-position: 0 -10176px/$factor;
+    }
+
+    &.ng:before {
+      background-position: 0 -10240px/$factor;
+    }
+
+    &.ni:before {
+      background-position: 0 -10304px/$factor;
+    }
+
+    &.nl:before {
+      background-position: 0 -10368px/$factor;
+    }
+
+    &.no:before {
+      background-position: 0 -10432px/$factor;
+    }
+
+    &.np:before {
+      background-position: 0 -10496px/$factor;
+    }
+
+    &.nr:before {
+      background-position: 0 -10560px/$factor;
+    }
+
+    &.nu:before {
+      background-position: 0 -10624px/$factor;
+    }
+
+    &.nz:before {
+      background-position: 0 -10688px/$factor;
+    }
+
+    &.om:before {
+      background-position: 0 -10752px/$factor;
+    }
+
+    &.pa:before {
+      background-position: 0 -10816px/$factor;
+    }
+
+    &.pe:before {
+      background-position: 0 -10880px/$factor;
+    }
+
+    &.pf:before {
+      background-position: 0 -10944px/$factor;
+    }
+
+    &.pg:before {
+      background-position: 0 -11008px/$factor;
+    }
+
+    &.ph:before {
+      background-position: 0 -11072px/$factor;
+    }
+
+    &.pk:before {
+      background-position: 0 -11136px/$factor;
+    }
+
+    &.pl:before {
+      background-position: 0 -11200px/$factor;
+    }
+
+    &.pn:before {
+      background-position: 0 -11264px/$factor;
+    }
+
+    &.pr:before {
+      background-position: 0 -11328px/$factor;
+    }
+
+    &.ps:before {
+      background-position: 0 -11392px/$factor;
+    }
+
+    &.pt:before {
+      background-position: 0 -11456px/$factor;
+    }
+
+    &.pw:before {
+      background-position: 0 -11520px/$factor;
+    }
+
+    &.py:before {
+      background-position: 0 -11584px/$factor;
+    }
+
+    &.qa:before {
+      background-position: 0 -11648px/$factor;
+    }
+
+    &.ro:before {
+      background-position: 0 -11712px/$factor;
+    }
+
+    &.rs:before {
+      background-position: 0 -11776px/$factor;
+    }
+
+    &.ru:before {
+      background-position: 0 -11840px/$factor;
+    }
+
+    &.rw:before {
+      background-position: 0 -11904px/$factor;
+    }
+
+    &.sa:before {
+      background-position: 0 -11968px/$factor;
+    }
+
+    &.sb:before {
+      background-position: 0 -12032px/$factor;
+    }
+
+    &.sc:before {
+      background-position: 0 -12096px/$factor;
+    }
+
+    &.sd:before {
+      background-position: 0 -12160px/$factor;
+    }
+
+    &.se:before {
+      background-position: 0 -12224px/$factor;
+    }
+
+    &.sg:before {
+      background-position: 0 -12288px/$factor;
+    }
+
+    &.sh:before {
+      background-position: 0 -12352px/$factor;
+    }
+
+    &.si:before {
+      background-position: 0 -12416px/$factor;
+    }
+
+    &.sk:before {
+      background-position: 0 -12480px/$factor;
+    }
+
+    &.sl:before {
+      background-position: 0 -12544px/$factor;
+    }
+
+    &.sm:before {
+      background-position: 0 -12608px/$factor;
+    }
+
+    &.sn:before {
+      background-position: 0 -12672px/$factor;
+    }
+
+    &.so:before {
+      background-position: 0 -12736px/$factor;
+    }
+
+    &.sr:before {
+      background-position: 0 -12800px/$factor;
+    }
+
+    &.ss:before {
+      background-position: 0 -12864px/$factor;
+    }
+
+    &.st:before {
+      background-position: 0 -12928px/$factor;
+    }
+
+    &.sv:before {
+      background-position: 0 -12992px/$factor;
+    }
+
+    &.sy:before {
+      background-position: 0 -13056px/$factor;
+    }
+
+    &.sz:before {
+      background-position: 0 -13120px/$factor;
+    }
+
+    &.tc:before {
+      background-position: 0 -13184px/$factor;
+    }
+
+    &.td:before {
+      background-position: 0 -13248px/$factor;
+    }
+
+    &.tf:before {
+      background-position: 0 -13312px/$factor;
+    }
+
+    &.tg:before {
+      background-position: 0 -13376px/$factor;
+    }
+
+    &.th:before {
+      background-position: 0 -13440px/$factor;
+    }
+
+    &.tj:before {
+      background-position: 0 -13504px/$factor;
+    }
+
+    &.tk:before {
+      background-position: 0 -13568px/$factor;
+    }
+
+    &.tl:before {
+      background-position: 0 -13632px/$factor;
+    }
+
+    &.tm:before {
+      background-position: 0 -13696px/$factor;
+    }
+
+    &.tn:before {
+      background-position: 0 -13760px/$factor;
+    }
+
+    &.to:before {
+      background-position: 0 -13824px/$factor;
+    }
+
+    &.tr:before {
+      background-position: 0 -13888px/$factor;
+    }
+
+    &.tt:before {
+      background-position: 0 -13952px/$factor;
+    }
+
+    &.tv:before {
+      background-position: 0 -14016px/$factor;
+    }
+
+    &.tw:before {
+      background-position: 0 -14080px/$factor;
+    }
+
+    &.tz:before {
+      background-position: 0 -14144px/$factor;
+    }
+
+    &.ua:before {
+      background-position: 0 -14208px/$factor;
+    }
+
+    &.ug:before {
+      background-position: 0 -14272px/$factor;
+    }
+
+    &.us:before {
+      background-position: 0 -14336px/$factor;
+    }
+
+    &.uy:before {
+      background-position: 0 -14400px/$factor;
+    }
+
+    &.uz:before {
+      background-position: 0 -14464px/$factor;
+    }
+
+    &.va:before {
+      background-position: 0 -14528px/$factor;
+    }
+
+    &.vc:before {
+      background-position: 0 -14592px/$factor;
+    }
+
+    &.ve:before {
+      background-position: 0 -14656px/$factor;
+    }
+
+    &.vg:before {
+      background-position: 0 -14720px/$factor;
+    }
+
+    &.vi:before {
+      background-position: 0 -14784px/$factor;
+    }
+
+    &.vn:before {
+      background-position: 0 -14848px/$factor;
+    }
+
+    &.vu:before {
+      background-position: 0 -14912px/$factor;
+    }
+
+    &.wf:before {
+      background-position: 0 -14976px/$factor;
+    }
+
+    &.ws:before {
+      background-position: 0 -15040px/$factor;
+    }
+
+    &.ye:before {
+      background-position: 0 -15104px/$factor;
+    }
+
+    &.yt:before {
+      background-position: 0 -15168px/$factor;
+    }
+
+    &.za:before {
+      background-position: 0 -15232px/$factor;
+    }
+
+    &.zm:before {
+      background-position: 0 -15296px/$factor;
+    }
+
+    &.zw:before {
+      background-position: 0 -15360px/$factor;
+    }
+
+    &._abkhazia:before {
+      background-position: 0 -15424px/$factor;
+    }
+
+    &._basque:before-country {
+      background-position: 0 -15488px/$factor;
+    }
+
+    &._british:before-antarctic-territory {
+      background-position: 0 -15552px/$factor;
+    }
+
+    &._commonwealth:before {
+      background-position: 0 -15616px/$factor;
+    }
+
+    &._england:before {
+      background-position: 0 -15680px/$factor;
+    }
+
+    &._gosquared:before {
+      background-position: 0 -15744px/$factor;
+    }
+
+    &._kosovo:before {
+      background-position: 0 -15808px/$factor;
+    }
+
+    &._mars:before {
+      background-position: 0 -15872px/$factor;
+    }
+
+    &._nagorno:before-karabakh {
+      background-position: 0 -15936px/$factor;
+    }
+
+    &._nato:before {
+      background-position: 0 -16000px/$factor;
+    }
+
+    &._northern:before-cyprus {
+      background-position: 0 -16064px/$factor;
+    }
+
+    &._olympics:before {
+      background-position: 0 -16128px/$factor;
+    }
+
+    &._red:before-cross {
+      background-position: 0 -16192px/$factor;
+    }
+
+    &._scotland:before {
+      background-position: 0 -16256px/$factor;
+    }
+
+    &._somaliland:before {
+      background-position: 0 -16320px/$factor;
+    }
+
+    &._south:before-ossetia {
+      background-position: 0 -16384px/$factor;
+    }
+
+    &._united:before-nations {
+      background-position: 0 -16448px/$factor;
+    }
+
+    &._unknown:before {
+      background-position: 0 -16512px/$factor;
+    }
+
+    &._wales:before {
+      background-position: 0 -16576px/$factor;
+    }
+
+}
