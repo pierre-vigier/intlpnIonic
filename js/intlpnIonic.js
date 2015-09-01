@@ -272,7 +272,7 @@ angular.module('intlpnIonic', ['ionic'])
                     '<div class="bar bar-subheader item-input-inset">' +
                         '<div class="item-input-wrapper">' +
                             '<i class="icon ion-ios-search placeholder-icon"></i>' +
-                            '<input type="search" placeholder="Search" ng-model="modalScope.pattern">' +
+                            '<input type="text" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search" ng-model="modalScope.pattern">' +
                             '<i class="icon ion-close-circled placeholder-icon" ng-show="modalScope.pattern" ng-click="modalScope.pattern=\'\'"></i>' +
                         '</div>' +
                     '</div>' +
@@ -280,39 +280,38 @@ angular.module('intlpnIonic', ['ionic'])
                     '<ion-list>' +
                         '<ion-item ng-repeat="country in modalScope.countries | filter:modalScope.pattern" ' +
                             'ng-click="modalScope.selectCountry( country.iso2, country.dialCode )" ' +
-                            'class="item-icon-left item-icon-right" >' +
-                                '<i class="icon icon-intlpn-flag {{country.iso2}}" ></i>' +
-                                '{{country.name}}' +
-                                '<i class="icon ion-ios-checkmark-empty" ng-show="(\'+\'+country.dialCode == modalScope.currentDialCode)"></i>' +
+                            'class="item-icon-left" ng-class="(\'+\'+country.dialCode == modalScope.currentDialCode)?\'item-icon-right\':\'\'">' +
+                                '<i class="icon icon-intlpn-flag {{::country.iso2}}" ></i>' +
+                                '{{::country.name}}' +
+                                '<i class="icon ion-ios-checkmark-empty" ng-if="(\'+\'+country.dialCode == modalScope.currentDialCode)"></i>' +
                         '</ion-item>' +
                     '</ion-list>' +
                 '</ion-content>' +
                 '</ion-modal-view>';
+            scope.modalScope = {
+                selectCountry: function( isocode, dialCode ) {
+                    scope._updateDialCode( dialCode );
+                    scope.modal.hide();
+                    $timeout(function() { input.focus();});
+                },
+                close: function() {
+                    scope.modal.hide();
+                },
+                countries: scope.intlpnHelper.countries
+            };
             scope.modal = $ionicModal.fromTemplate( modalTemplate, {
                 scope: scope
             });
             scope.pickCountry = function() {
-                var modalScope = {
-                    selectCountry: function( isocode, dialCode ) {
-                        scope._updateDialCode( dialCode );
-                        scope.modal.hide();
-                        $timeout(function() { input.focus();});
-                    },
-                    close: function() {
-                        scope.modal.hide();
-                    },
-                    countries: scope.intlpnHelper.countries,
-                    pattern: '',
-                    currentDialCode: scope.dialCode,
-                };
-                scope.modalScope = modalScope;
+                scope.modalScope.pattern = '';
+                scope.modalScope.currentDialCode = scope.dialCode;
                 scope.modal.show();
             };
         },
         replace:true,
         template: '<div class="item item-input">' +
                         '<i class="icon icon-intlpn-flag {{ (phone||dialCode)?codeFromPhone( phone||dialCode )||\'none\':\'none\'}}" ng-click="pickCountry()" ></i>'+
-                        '<input intlpn-formatter type="text" placeholder="{{placeholder||\'test\'}}" ng-model="phone" >' +
+                        '<input intlpn-formatter type="tel" placeholder="{{placeholder||\'test\'}}" ng-model="phone" >' +
                 '</div>'
     };
 })
