@@ -141,7 +141,8 @@ angular.module('intlpnIonic', ['ionic'])
               }
             }
             return dialCode;
-        }
+        };
+        this.format_number = intlTelInputUtils.formatNumber;
     };
     return {
         getHelper: function( onlyCountry) {
