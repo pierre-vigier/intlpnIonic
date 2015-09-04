@@ -63,7 +63,6 @@ angular.module('intlpnIonic', ['ionic'])
                 angular.forEach( allCountries, function(value) {
                      angular.forEach( self.onlyCountry, function( restricted ) {
                          if( restricted === value.iso2 )  {
-                             console.log( "select "+restricted );
                              self.countries.push( value );
                          }
                      });
@@ -178,7 +177,6 @@ angular.module('intlpnIonic', ['ionic'])
                 var selectionLength = end - start;
                 var digitsOnTheRight = 0;
                 for( var i = val.length; i >= start; i-- ) {
-                    //console.log( val.charAt(i) );
                     if( /^\d$/.test( val.charAt(i) ) ) {
                         digitsOnTheRight ++;
                     }
@@ -219,23 +217,38 @@ angular.module('intlpnIonic', ['ionic'])
             //When model value (outside world) is updated, set the view value (in ngModel directive)
             ngModelCtrl.$formatters.push(function(modelValue) {
                 //from raw value to formatted value, parenthesis, dash, ...
-                return  intlTelInputUtils.formatNumber(modelValue);
+                modelValue = modelValue.replace(/[^0-9]/g, "");
+                return  modelValue?intlTelInputUtils.formatNumber('+'+modelValue):'';
             });
             //from the value in ngModel directive to my directive
             ngModelCtrl.$render = function() {
                 scope.phone = ngModelCtrl.$viewValue;
                 scope.dialCode = scope.intlpnHelper.getDialCode( ngModelCtrl.$viewValue );
+                scope.isocode = scope.intlpnHelper.getFlagFromNumber( ngModelCtrl.$viewValue );
+
             };
             //from  view value (in ngModel directive) to model value (outside world)
             ngModelCtrl.$parsers.push(function(viewValue) {
                 //clean everything that is not numeric or +
-                return '+' + viewValue.replace(/[^0-9]/g, "");
+                viewValue = viewValue.replace(/[^0-9]/g, "");
+                return viewValue?'+' + viewValue:'';
             });
             //$setViewValue, from my directive to view value (in ngModel directive)
             scope.$watch('phone', function(newValue, oldValue) {
                 ngModelCtrl.$setViewValue( scope.phone );
                 if( scope.intlpnHelper.getDialCode(  scope.phone ) ) {
                     scope.dialCode = scope.intlpnHelper.getDialCode(  scope.phone );
+                    //from dialcode, validate current country
+                    var countryCodes = scope.intlpnHelper.countryCodes[ scope.dialCode.replace(/[^0-9]/g, "") ];
+                    var alreadySelected = (countryCodes.indexOf( scope.isocode ) > -1)?true:false;
+                    if( !alreadySelected ) {
+                        for (var j = 0; j < countryCodes.length; j++) {
+                            if (countryCodes[j]) {
+                                scope.isocode = countryCodes[j];
+                                break;
+                            }
+                        }
+                    }
                 } else if( !scope.dialCode ) {
                     //default value
                     scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
@@ -256,9 +269,7 @@ angular.module('intlpnIonic', ['ionic'])
                 }
             })
             .bind('blur', function() {
-                console.log('blur '+ scope.phone + " : " +  scope.dialCode);
                 if( scope.phone === scope.dialCode || !scope.intlpnHelper.getDialCode(scope.phone) ) {
-                    console.log("empty phone");
                     scope.$apply(function() {
                         scope.phone = '';
                     });
@@ -279,18 +290,19 @@ angular.module('intlpnIonic', ['ionic'])
                  '<ion-content class="has-header has-subheader">' +
                     '<ion-list>' +
                         '<ion-item ng-repeat="country in modalScope.countries | filter:modalScope.pattern" ' +
-                            'ng-click="modalScope.selectCountry( country.iso2, country.dialCode )" ' +
-                            'class="item-icon-left" ng-class="(\'+\'+country.dialCode == modalScope.currentDialCode)?\'item-icon-right\':\'\'">' +
+                            'ng-click="modalScope.selectCountry( country )" ' +
+                            'class="item-icon-left" ng-class="(country.iso2 == modalScope.currentCountry)?\'item-icon-right\':\'\'">' +
                                 '<i class="icon icon-intlpn-flag {{::country.iso2}}" ></i>' +
                                 '{{::country.name}}' +
-                                '<i class="icon ion-ios-checkmark-empty" ng-if="(\'+\'+country.dialCode == modalScope.currentDialCode)"></i>' +
+                                '<i class="icon ion-ios-checkmark-empty" ng-if="(country.iso2 == modalScope.currentCountry)"></i>' +
                         '</ion-item>' +
                     '</ion-list>' +
                 '</ion-content>' +
                 '</ion-modal-view>';
             scope.modalScope = {
-                selectCountry: function( isocode, dialCode ) {
-                    scope._updateDialCode( dialCode );
+                selectCountry: function( country ) {
+                    scope.isocode = country.iso2;
+                    scope._updateDialCode( country.dialCode );
                     scope.modal.hide();
                     $timeout(function() { input.focus();});
                 },
@@ -304,13 +316,13 @@ angular.module('intlpnIonic', ['ionic'])
             });
             scope.pickCountry = function() {
                 scope.modalScope.pattern = '';
-                scope.modalScope.currentDialCode = scope.dialCode;
+                scope.modalScope.currentCountry = scope.isocode;
                 scope.modal.show();
             };
         },
         replace:true,
         template: '<div class="item item-input intlpn-container">' +
-                        '<i class="icon icon-intlpn-flag {{ (phone||dialCode)?codeFromPhone( phone||dialCode )||\'none\':\'none\'}}" ng-click="pickCountry()" ></i>'+
+                        '<i class="icon icon-intlpn-flag {{ isocode }}" ng-click="pickCountry()" ></i>'+
                         '<input intlpn-formatter type="tel" placeholder="{{placeholder||\'test\'}}" ng-model="phone" >' +
                 '</div>'
     };
