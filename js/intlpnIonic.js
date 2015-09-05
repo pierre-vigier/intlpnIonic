@@ -37,6 +37,12 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
     self.isValid = function( number ) {
         return intlTelInputUtils.isValidNumber(number);
     }
+
+    //default value
+    if( !self.isocode && self.defaultCountry ) {
+        self.isocode = self.defaultCountry;
+        self.dialCode = '+' + self.intlpnHelper.dialCodesByIso[self.defaultCountry];
+    }
 };
 
 angular.module('intlpnIonic', ['ionic'])
