@@ -224,6 +224,12 @@ angular.module('intlpnIonic', ['ionic'])
             //When model value (outside world) is updated, set the view value (in ngModel directive)
             ngModelCtrl.$formatters.push(function(modelValue) {
                 //from raw value to formatted value, parenthesis, dash, ...
+                if( typeof modelValue === undefined || modelValue === '' ) {
+                    $timeout(function() {
+                        scope.isocode = scope.defaultCountry;
+                        scope.dialCode = '+' + scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                    });
+                }
                 modelValue = modelValue.replace(/[^0-9]/g, "");
                 return  modelValue?intlTelInputUtils.formatNumber('+'+modelValue):'';
             });
