@@ -267,6 +267,12 @@ angular.module('intlpnIonic', ['ionic'])
                     scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
                 }
             });
+            scope.$watch('defaultCountry', function(newValue, oldValue) {
+                if( !scope.phone || scope.phone === scope.dialCode ) {
+                    scope.isocode = scope.defaultCountry;
+                    scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                }
+            });
             ngModelCtrl.$validators.validForm = function( modelValue, viewValue ) {
                 //check if the cleaned value is correct
                 return scope.isValid( modelValue );
@@ -282,7 +288,13 @@ angular.module('intlpnIonic', ['ionic'])
                 }
             })
             .bind('blur', function() {
-                if( scope.phone === scope.dialCode || !scope.intlpnHelper.getDialCode(scope.phone) ) {
+                if( scope.phone === '+' ) {
+                    scope.$apply(function() {
+                        scope.isocode = scope.defaultCountry;
+                        scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                        scope.phone = '';
+                    });
+                } else if( scope.phone === scope.dialCode || !scope.intlpnHelper.getDialCode(scope.phone) ) {
                     scope.$apply(function() {
                         scope.phone = '';
                     });
