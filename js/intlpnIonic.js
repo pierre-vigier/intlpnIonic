@@ -125,7 +125,7 @@ angular.module('intlpnIonic', ['ionic'])
         this.getDialCode= function(number) {
             var dialCode = "";
             // only interested in international numbers (starting with a plus)
-            if (number.charAt(0) == "+") {
+            if (number && number.charAt(0) == "+") {
               var numericChars = "";
               // iterate over chars
               for (var i = 0; i < number.length; i++) {
@@ -230,7 +230,8 @@ angular.module('intlpnIonic', ['ionic'])
                         scope.dialCode = '+' + scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
                     });
                 }
-                modelValue = modelValue.replace(/[^0-9]/g, "");
+                if( modelValue )
+                    modelValue = modelValue.replace(/[^0-9]/g, "");
                 return  modelValue?intlTelInputUtils.formatNumber('+'+modelValue):'';
             });
             //from the value in ngModel directive to my directive
