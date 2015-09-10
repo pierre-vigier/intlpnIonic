@@ -209,7 +209,7 @@ angular.module('intlpnIonic', ['ionic'])
         }
     }
 })
-.directive('intlpn', function( $ionicModal, $timeout ) {
+.directive('intlpn', function( $ionicModal, $timeout, $ionicScrollDelegate ) {
     return {
         restrict: 'E',
         require: '^ngModel',
