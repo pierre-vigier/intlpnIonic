@@ -309,7 +309,7 @@ angular.module('intlpnIonic', ['ionic'])
                     '<div class="bar bar-subheader item-input-inset">' +
                         '<div class="item-input-wrapper">' +
                             '<i class="icon ion-ios-search placeholder-icon"></i>' +
-                            '<input type="text" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search" ng-model="modalScope.pattern">' +
+                            '<input type="text" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search" ng-model="modalScope.pattern" ng-change="modalScope.scrollTop()">' +
                             '<i class="icon ion-close-circled placeholder-icon" ng-show="modalScope.pattern" ng-click="modalScope.pattern=\'\'"></i>' +
                         '</div>' +
                     '</div>' +
@@ -334,6 +334,9 @@ angular.module('intlpnIonic', ['ionic'])
                 },
                 close: function() {
                     scope.modal.hide();
+                },
+                scrollTop: function() {
+                    $ionicScrollDelegate.scrollTop(true);
                 },
                 countries: scope.intlpnHelper.countries
             };
