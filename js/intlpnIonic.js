@@ -315,11 +315,11 @@ angular.module('intlpnIonic', ['ionic'])
                     '</div>' +
                  '<ion-content class="has-header has-subheader">' +
                     '<ion-list>' +
-                        '<ion-item ng-repeat="country in modalScope.countries | filter:modalScope.pattern" ' +
+                        '<ion-item collection-repeat="country in modalScope.countries | filter:modalScope.pattern" item-height="55px" item-width="100%"' +
                             'ng-click="modalScope.selectCountry( country )" ' +
                             'class="item-icon-left" ng-class="(country.iso2 == modalScope.currentCountry)?\'item-icon-right\':\'\'">' +
                                 '<i class="icon icon-intlpn-flag {{::country.iso2}}" ></i>' +
-                                '{{::country.name}}' +
+                                '{{country.name}}' +
                                 '<i class="icon ion-ios-checkmark-empty" ng-if="(country.iso2 == modalScope.currentCountry)"></i>' +
                         '</ion-item>' +
                     '</ion-list>' +
@@ -348,6 +348,10 @@ angular.module('intlpnIonic', ['ionic'])
                 scope.modalScope.currentCountry = scope.isocode;
                 scope.modal.show();
             };
+            scope.$on('$destroy', function() {
+                console.log('Cleaning modal');
+                scope.modal.remove();
+            });
         },
         replace:true,
         template: '<div class="item item-input intlpn-container">' +
