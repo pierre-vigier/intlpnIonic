@@ -8,6 +8,9 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
     if( self.nationalMode ) {
         self.national = true;
     }
+    self.boxHeaderClass = angular.isDefined( self.boxHeaderClass )?self.boxHeaderClass:"bar-positive";
+    self.boxHeaderTitle = angular.isDefined(self.boxHeaderTitle )?self.boxHeaderTitle:"Search";
+    self.searchPlaceholder = angular.isDefined( self.searchPlaceholder )?self.searchPlaceholder:self.boxHeaderTitle;
 
     self._updateDialCode = function(newDialCode) {
         var newNumber;
@@ -27,7 +30,7 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
               } else {
                 // if the previous number didn't contain a dial code, we should persist it
                 // XXX: remove jquery
-                var existingNumber = (self.phone.charAt(0) != "+") ? $.trim(self.phone) : "";
+                var existingNumber = (self.phone.charAt(0) != "+") ? self.phone.trim() : "";
                 newNumber = newDialCode + existingNumber;
               }
             } else {
@@ -141,7 +144,8 @@ angular.module('intlpnIonic', ['ionic'])
                 var c = number.charAt(i);
                 // if char is number
                 //XXX: replace by angular
-                if ($.isNumeric(c)) {
+                //if ($.isNumeric(c)) {
+                if ( /^\d$/.test(c) ) {
                   numericChars += c;
                   // if current numericChars make a valid dial code
                   if (self.countryCodes[numericChars]) {
@@ -173,7 +177,7 @@ angular.module('intlpnIonic', ['ionic'])
         require: 'ngModel',
         scope: {
             'isoCode' : '@',
-            'nationalMode' : '@'
+            'nationalMode' : '='
         },
         link: function(scope, element, attrs, ngModelController) {
             var el = element[0];
@@ -247,7 +251,10 @@ angular.module('intlpnIonic', ['ionic'])
             placeholder: '@',
             defaultCountry: '@',
             onlyCountry: '=',
-            nationalMode: '@'
+            nationalMode: '=',
+            boxHeaderClass: '@',
+            boxHeaderTitle: '@',
+            searchPlaceholder: '@',
         },
         controller: intlpnCtrl,
         link:function (scope, element, attrs, ngModelCtrl) {
@@ -362,18 +369,18 @@ angular.module('intlpnIonic', ['ionic'])
                 }
             });
             var modalTemplate = '<ion-modal-view>' +
-                '<ion-header-bar class="bar-positive">' +
-                    '<h1 class="title">Search</h1>' +
+                '<ion-header-bar class="'+scope.boxHeaderClass+'">' + //need to have the class before creation
+                    '<h1 class="title">{{modalScope.boxHeaderTitle}} {{modalScope.countries.length}}</h1>' +
                     '<button class="button button-clear icon ion-ios-close-empty" ng-click="modalScope.close()"></button>' +
                 '</ion-header-bar>' +
-                    '<div class="bar bar-subheader item-input-inset">' +
+                    '<div class="bar bar-subheader item-input-inset" ng-if="modalScope.countries.length > 10">' +
                         '<div class="item-input-wrapper">' +
                             '<i class="icon ion-ios-search placeholder-icon"></i>' +
-                            '<input type="text" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search" ng-model="modalScope.pattern" ng-change="modalScope.scrollTop()">' +
+                            '<input type="text" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="{{modalScope.searchPlaceholder}}" ng-model="modalScope.pattern" ng-change="modalScope.scrollTop()">' +
                             '<i class="icon ion-close-circled placeholder-icon" ng-show="modalScope.pattern" ng-click="modalScope.pattern=\'\'"></i>' +
                         '</div>' +
                     '</div>' +
-                 '<ion-content class="has-header has-subheader">' +
+                 '<ion-content class="has-header" ng-class="(modalScope.countries.length > 10)?\'has-subheader\':\'\'">' +
                     '<ion-list>' +
                         '<ion-item collection-repeat="country in modalScope.countries | filter:modalScope.pattern" item-height="55px" item-width="100%"' +
                             'ng-click="modalScope.selectCountry( country )" ' +
@@ -398,7 +405,9 @@ angular.module('intlpnIonic', ['ionic'])
                 scrollTop: function() {
                     $ionicScrollDelegate.scrollTop(true);
                 },
-                countries: scope.intlpnHelper.countries
+                countries: scope.intlpnHelper.countries,
+                boxHeaderTitle: scope.boxHeaderTitle,
+                searchPlaceholder: scope.searchPlaceholder
             };
             scope.modal = $ionicModal.fromTemplate( modalTemplate, {
                 scope: scope
@@ -417,7 +426,7 @@ angular.module('intlpnIonic', ['ionic'])
         replace:true,
         template: '<div class="item item-input intlpn-container">' +
                         '<i class="icon icon-intlpn-flag {{ isocode }}" ng-click="pickCountry()" ></i>'+
-                        '<input intlpn-formatter national-mode="{{nationalMode}}" iso-code="{{isocode}}" type="tel" placeholder="{{placeholder||\'test\'}}" ng-model="phone" >' +
+                        '<input intlpn-formatter national-mode="nationalMode" iso-code="{{isocode}}" type="tel" placeholder="{{placeholder||\'test\'}}" ng-model="phone" >' +
                 '</div>'
     };
 })
