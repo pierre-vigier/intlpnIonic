@@ -1,3 +1,6 @@
+## version v0.1.2
+    * Bug fix in search bar title
+
 ## version v0.1.1
     * National mode
     * Customization of the search country box (Header style, text, placeholder of the search box)

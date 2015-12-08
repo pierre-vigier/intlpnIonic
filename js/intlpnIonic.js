@@ -370,7 +370,7 @@ angular.module('intlpnIonic', ['ionic'])
             });
             var modalTemplate = '<ion-modal-view>' +
                 '<ion-header-bar class="'+scope.boxHeaderClass+'">' + //need to have the class before creation
-                    '<h1 class="title">{{modalScope.boxHeaderTitle}} {{modalScope.countries.length}}</h1>' +
+                    '<h1 class="title">{{modalScope.boxHeaderTitle}}</h1>' +
                     '<button class="button button-clear icon ion-ios-close-empty" ng-click="modalScope.close()"></button>' +
                 '</ion-header-bar>' +
                     '<div class="bar bar-subheader item-input-inset" ng-if="modalScope.countries.length > 10">' +
@@ -417,6 +417,9 @@ angular.module('intlpnIonic', ['ionic'])
                     return;
                 scope.modalScope.pattern = '';
                 scope.modalScope.currentCountry = scope.isocode;
+                scope.modalScope.countries= scope.intlpnHelper.countries;
+                scope.modalScope.boxHeaderTitle= scope.boxHeaderTitle;
+                scope.modalScope.searchPlaceholder= scope.searchPlaceholder;
                 scope.modal.show();
             };
             scope.$on('$destroy', function() {
