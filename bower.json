@@ -12,5 +12,9 @@
     "./img/intlpn-flags.png",
     "./lib/libphonenumber/build/utils.js"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "angular-mocks": "1.4.3",
+    "ionic": "~1.1.1"
+  }
 }
