@@ -33,5 +33,27 @@ describe('InternationalPhoneInput', function() {
             expect( el.find("input").attr("iso-code") ).toEqual("fr");
             expect( el.find("i").hasClass("fr") ).toBeTruthy();
         });
-    })
+        it('Digit by digit', function() {
+            var digitInput = function( digit ) {
+                el.find("input").val( el.find("input").val() + digit );
+                el.find("input").triggerHandler('change');
+            }
+            expect( el.find("input").attr("iso-code") ).toEqual("us");
+            expect( el.find("i").hasClass("us") ).toBeTruthy();
+            digitInput(3);
+            digitInput(3);
+            expect( el.find("input").attr("iso-code") ).toEqual("fr");
+            expect( el.find("i").hasClass("fr") ).toBeTruthy();
+            digitInput(4);
+            digitInput(7);
+            digitInput(1);
+            digitInput(7);
+            digitInput(1);
+            digitInput(7);
+            digitInput(1);
+            digitInput(7);
+            digitInput(1);
+            expect( el.find("input").val() ).toEqual("+33 4 71 71 71 71");
+        });
+    });
 });
