@@ -57,6 +57,8 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
     }
 };
 
+intlpnCtrl.$inject = ['$ionicModal', '$scope', 'intlpnUtils'];
+
 angular.module('intlpnIonic', ['ionic'])
 .service('intlpnUtils', function() {
     var intlpnUtilsHelper = function( onlyCountry) {
@@ -242,7 +244,7 @@ angular.module('intlpnIonic', ['ionic'])
         }
     }
 })
-.directive('intlpn', function( $ionicModal, $timeout, $ionicScrollDelegate ) {
+.directive('intlpn',  ['$ionicModal', '$timeout', '$ionicScrollDelegate', function( $ionicModal, $timeout, $ionicScrollDelegate ) {
     return {
         restrict: 'E',
         require: '^ngModel',
@@ -432,4 +434,4 @@ angular.module('intlpnIonic', ['ionic'])
                         '<input intlpn-formatter national-mode="nationalMode" iso-code="{{isocode}}" type="tel" placeholder="{{placeholder||\'test\'}}" ng-model="phone" >' +
                 '</div>'
     };
-})
+}])
