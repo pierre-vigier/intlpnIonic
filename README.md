@@ -40,10 +40,13 @@ A set of options can be passed to the component:
 * _box-header-class_: Class of the header bar of the modal to select countries
 * _box-header-title_: Title of the modal to select countries
 * _search-placeholder_: placeholder text of the search box in the header to select countries
+* _country-iso-code_: you can bind a scope variable here, that will be updated with the current iso code of the selected country, read-only
+* _country-dial-code_: you can bind a scope variable here, that will be updated with the current dial code of the selected country, read-only
+
 
 Sample code:
 ```
-<intlpn ng-model="model.field" placeholder="Placeholder" default-country="fr" only-country="['fr','cn','us','it']" national-mode="true" box-header-class="bar-energized" box-header-title="Search country" search-placeholder="search"></intlpn>
+<intlpn ng-model="model.field" placeholder="Placeholder" default-country="fr" only-country="['fr','cn','us','it']" national-mode="true" box-header-class="bar-energized" box-header-title="Search country" search-placeholder="search" country-iso-code="model.isocode" country-dial-code="model.dialcode"></intlpn>
 ```
 
 Live example here: http://play.ionic.io/app/6d0a3832cc50

@@ -40,6 +40,7 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
             self.phone = newNumber;
         }
         self.dialCode = newDialCode;
+        self.countryDialCode = self.dialCode;
     };
 
     self.codeFromPhone = function( number ) {
@@ -53,7 +54,9 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
     //default value
     if( !self.isocode && self.defaultCountry ) {
         self.isocode = self.defaultCountry;
+        self.countryIsoCode = self.isocode;
         self.dialCode = '+' + self.intlpnHelper.dialCodesByIso[self.defaultCountry];
+        self.countryDialCode = self.dialCode;
     }
 };
 
@@ -257,6 +260,8 @@ angular.module('intlpnIonic', ['ionic'])
             boxHeaderClass: '@',
             boxHeaderTitle: '@',
             searchPlaceholder: '@',
+            countryIsoCode: '=',
+            countryDialCode: '='
         },
         controller: intlpnCtrl,
         link:function (scope, element, attrs, ngModelCtrl) {
@@ -266,7 +271,9 @@ angular.module('intlpnIonic', ['ionic'])
                 if( typeof modelValue === undefined || modelValue === '' ) {
                     $timeout(function() {
                         scope.isocode = scope.defaultCountry;
+                        scope.countryIsoCode = scope.isocode
                         scope.dialCode = '+' + scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                        scope.countryDialCode = scope.dialCode;
                     });
                 }
                 if( modelValue )
@@ -281,7 +288,10 @@ angular.module('intlpnIonic', ['ionic'])
             //from the value in ngModel directive to my directive
             ngModelCtrl.$render = function() {
                 scope.dialCode = scope.intlpnHelper.getDialCode( ngModelCtrl.$viewValue );
+                console.log("update" + scope.dialCode + " hhh");
+                scope.countryDialCode = scope.dialCode;
                 scope.isocode = scope.intlpnHelper.getFlagFromNumber( ngModelCtrl.$viewValue );
+                scope.countryIsoCode = scope.isocode;
                 if( scope.national ) {
                     scope.phone = intlTelInputUtils.formatNumberByType(ngModelCtrl.$viewValue,scope.isocode,intlTelInputUtils.numberFormat.NATIONAL);
                 } else {
@@ -308,6 +318,7 @@ angular.module('intlpnIonic', ['ionic'])
                 } else {
                     if( scope.intlpnHelper.getDialCode(  scope.phone ) ) {
                         scope.dialCode = scope.intlpnHelper.getDialCode(  scope.phone );
+                        scope.countryDialCode = scope.dialCode;
                         //from dialcode, validate current country
                         var countryCodes = scope.intlpnHelper.countryCodes[ scope.dialCode.replace(/[^0-9]/g, "") ];
                         var alreadySelected = (countryCodes.indexOf( scope.isocode ) > -1)?true:false;
@@ -315,6 +326,7 @@ angular.module('intlpnIonic', ['ionic'])
                             for (var j = 0; j < countryCodes.length; j++) {
                                 if (countryCodes[j]) {
                                     scope.isocode = countryCodes[j];
+                                    scope.countryIsoCode = scope.isocode;
                                     break;
                                 }
                             }
@@ -322,13 +334,16 @@ angular.module('intlpnIonic', ['ionic'])
                     } else if( !scope.dialCode ) {
                         //default value
                         scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                        scope.countryDialCode = scope.dialCode;
                     }
                 }
             });
             scope.$watch('defaultCountry', function(newValue, oldValue) {
                 if( !scope.phone || scope.phone === scope.dialCode ) {
                     scope.isocode = scope.defaultCountry;
+                    scope.countryIsoCode = scope.isocode;
                     scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                    scope.countryDialCode = scope.dialCode;
                 }
             });
             ngModelCtrl.$validators.validForm = function( modelValue, viewValue ) {
@@ -349,6 +364,7 @@ angular.module('intlpnIonic', ['ionic'])
                     if( !scope.phone ) {
                         scope.$apply(function() {
                             scope.phone = scope.dialCode;
+                            scope.countryDialCode = scope.dialCode;
                             input[0].setSelectionRange( scope.dialCode.length );
                         });
                     }
@@ -360,7 +376,9 @@ angular.module('intlpnIonic', ['ionic'])
                     if( scope.phone === '+' ) {
                         scope.$apply(function() {
                             scope.isocode = scope.defaultCountry;
+                            scope.countryIsoCode = scope.isocode;
                             scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                            scope.countryDialCode = scope.dialCode;
                             scope.phone = '';
                         });
                     } else if( scope.phone === scope.dialCode || !scope.intlpnHelper.getDialCode(scope.phone) ) {
@@ -397,6 +415,7 @@ angular.module('intlpnIonic', ['ionic'])
             scope.modalScope = {
                 selectCountry: function( country ) {
                     scope.isocode = country.iso2;
+                    scope.countryIsoCode = scope.isocode;
                     scope._updateDialCode( country.dialCode );
                     scope.modal.hide();
                     $timeout(function() { input.focus();});
