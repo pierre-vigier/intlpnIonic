@@ -26,7 +26,7 @@ Implemenation is dirty for now, as i need that as soon as possible.
   var app = angular.module('myApp', ['ionic','intlpnIonic'])...
   ```
   ```html
-  <intlpn ng-model="phone.number" placehoder="placeholder" only-country="['us','fr']"></intlpn>
+  <intlpn ng-model="phone.number" placeholder="placeholder" only-country="['us','fr']"></intlpn>
   ```
 
 ## Configurations
