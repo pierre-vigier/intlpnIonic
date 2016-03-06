@@ -260,8 +260,8 @@ angular.module('intlpnIonic', ['ionic'])
             boxHeaderClass: '@',
             boxHeaderTitle: '@',
             searchPlaceholder: '@',
-            countryIsoCode: '=',
-            countryDialCode: '='
+            countryIsoCode: '=?',
+            countryDialCode: '=?'
         },
         controller: intlpnCtrl,
         link:function (scope, element, attrs, ngModelCtrl) {
@@ -288,7 +288,6 @@ angular.module('intlpnIonic', ['ionic'])
             //from the value in ngModel directive to my directive
             ngModelCtrl.$render = function() {
                 scope.dialCode = scope.intlpnHelper.getDialCode( ngModelCtrl.$viewValue );
-                console.log("update" + scope.dialCode + " hhh");
                 scope.countryDialCode = scope.dialCode;
                 scope.isocode = scope.intlpnHelper.getFlagFromNumber( ngModelCtrl.$viewValue );
                 scope.countryIsoCode = scope.isocode;
@@ -418,7 +417,7 @@ angular.module('intlpnIonic', ['ionic'])
                     scope.countryIsoCode = scope.isocode;
                     scope._updateDialCode( country.dialCode );
                     scope.modal.hide();
-                    $timeout(function() { input.focus();});
+                    $timeout(function() { input[0].focus();});
                 },
                 close: function() {
                     scope.modal.hide();
