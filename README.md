@@ -6,6 +6,8 @@ Heavily based on https://github.com/Bluefieldscom/intl-tel-input
 Using https://github.com/Bluefieldscom/intl-tel-input inside Ionic framework creates incompatibilities, as by default, Ionic will handle scroll event which makes the phone number plugin not working, as the popup to choose a country is not scrollable.
 Implemenation is dirty for now, as i need that as soon as possible.
 
+There is as well a filter to format a number in either international or national mode.
+
 ## Getting Started
 1. Install the requirements
 
@@ -28,6 +30,17 @@ Implemenation is dirty for now, as i need that as soon as possible.
   ```html
   <intlpn ng-model="phone.number" placeholder="placeholder" only-country="['us','fr']"></intlpn>
   ```
+
+5. for formatting a number, use filter `intlpnFormat`, default international mode
+
+  ```js
+  var app = angular.module('myApp', ['ionic','intlpnIonic'])...
+  ```
+  ```html
+  <span>{{ model.phoneNUmber | intlpnFormat }}</span><!-- number will be in internaional mode -->
+  <span>{{ model.phoneNUmber | intlpnFormat:'national' }}</span><!-- number will be in national mode -->
+  ```
+
 
 ## Configurations
 

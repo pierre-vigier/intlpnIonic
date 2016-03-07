@@ -167,6 +167,7 @@ angular.module('intlpnIonic', ['ionic'])
             return dialCode;
         };
         this.format_number = intlTelInputUtils.formatNumber;
+        this.intlTelInputUtils = intlTelInputUtils;
     };
     return {
         getHelper: function( onlyCountry) {
@@ -453,3 +454,14 @@ angular.module('intlpnIonic', ['ionic'])
                 '</div>'
     };
 }])
+.filter('intlpnFormat', function( intlpnUtils ) {
+    var helper = intlpnUtils.getHelper();
+    var utils = helper.intlTelInputUtils;
+    return function( input, type ) {
+        var t=utils.numberFormat.INTERNATIONAL;
+        if( type == 'national') {
+            t=utils.numberFormat.NATIONAL;
+        }
+        return utils.formatNumberByType(input, null, t);
+    }
+});
