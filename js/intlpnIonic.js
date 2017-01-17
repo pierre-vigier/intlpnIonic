@@ -273,7 +273,7 @@ angular.module('intlpnIonic', ['ionic'])
                     $timeout(function() {
                         scope.isocode = scope.defaultCountry;
                         scope.countryIsoCode = scope.isocode
-                        scope.dialCode = '+' + scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                        scope.dialCode = '+' + (scope.intlpnHelper.dialCodesByIso[scope.defaultCountry] ? scope.intlpnHelper.dialCodesByIso[scope.defaultCountry]: "");
                         scope.countryDialCode = scope.dialCode;
                     });
                 }
