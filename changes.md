@@ -1,3 +1,6 @@
+## version v0.1.9
+    * Fix of undefined value when no number is provided
+
 ## version v0.1.8
     * Update version of libphonenumber
 
