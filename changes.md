@@ -1,3 +1,6 @@
+## version v0.1.12
+    * Filter non valid characters
+
 ## version v0.1.11
     * Fix a bug when dialCode was empty
 

@@ -193,6 +193,8 @@ angular.module('intlpnIonic', ['ionic'])
             }
 
             function clean(x) {
+                //remove letters
+                x = x.replace(/[^0-9\- +()]/g,'');
                 if( national ) {
                     if( x.length > 1 ) {
                         return intlTelInputUtils.formatNumber(x, scope.isoCode, true );
@@ -366,7 +368,7 @@ angular.module('intlpnIonic', ['ionic'])
                             if( scope.dialCode ) {
                                 scope.phone = scope.dialCode;
                                 scope.countryDialCode = scope.dialCode;
-                                input[0].setSelectionRange(0, scope.dialCode.length );
+                                input[0].setSelectionRange(scope.dialCode.length, scope.dialCode.length );
                             }
                         });
                     }
