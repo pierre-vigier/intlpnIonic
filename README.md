@@ -11,7 +11,7 @@ There is as well a filter to format a number in either international or national
 ## Getting Started
 1. Install the requirements
  ```bash
- bower install https://github.com/pierre-vigier/intlpnIonic.git#0.1.8 --save
+ bower install https://github.com/pierre-vigier/intlpnIonic.git#0.1.10 --save
  ```
 
 2. Link the stylesheet
