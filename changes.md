@@ -1,3 +1,6 @@
+## version v0.1.11
+    * Fix a bug when dialCode was empty
+
 ## version v0.1.10
     * Update version of libphonenumber
 

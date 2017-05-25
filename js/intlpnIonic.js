@@ -333,7 +333,7 @@ angular.module('intlpnIonic', ['ionic'])
                         }
                     } else if( !scope.dialCode ) {
                         //default value
-                        scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                        scope.dialCode = "+"+( scope.defaultCountry && scope.intlpnHelper.dialCodesByIso[scope.defaultCountry] ? scope.intlpnHelper.dialCodesByIso[scope.defaultCountry] : "" );
                         scope.countryDialCode = scope.dialCode;
                     }
                 }
@@ -342,7 +342,7 @@ angular.module('intlpnIonic', ['ionic'])
                 if( !scope.phone || scope.phone === scope.dialCode ) {
                     scope.isocode = scope.defaultCountry;
                     scope.countryIsoCode = scope.isocode;
-                    scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                    scope.dialCode = "+"+( scope.defaultCountry && scope.intlpnHelper.dialCodesByIso[scope.defaultCountry] ? scope.intlpnHelper.dialCodesByIso[scope.defaultCountry] : "" )
                     scope.countryDialCode = scope.dialCode;
                 }
             });
@@ -363,9 +363,11 @@ angular.module('intlpnIonic', ['ionic'])
                 } else {
                     if( !scope.phone ) {
                         scope.$apply(function() {
-                            scope.phone = scope.dialCode;
-                            scope.countryDialCode = scope.dialCode;
-                            input[0].setSelectionRange( scope.dialCode.length );
+                            if( scope.dialCode ) {
+                                scope.phone = scope.dialCode;
+                                scope.countryDialCode = scope.dialCode;
+                                input[0].setSelectionRange(0, scope.dialCode.length );
+                            }
                         });
                     }
                 }
@@ -377,7 +379,7 @@ angular.module('intlpnIonic', ['ionic'])
                         scope.$apply(function() {
                             scope.isocode = scope.defaultCountry;
                             scope.countryIsoCode = scope.isocode;
-                            scope.dialCode = "+"+scope.intlpnHelper.dialCodesByIso[scope.defaultCountry];
+                            scope.dialCode = "+"+( scope.defaultCountry && scope.intlpnHelper.dialCodesByIso[scope.defaultCountry] ? scope.intlpnHelper.dialCodesByIso[scope.defaultCountry] : "" )
                             scope.countryDialCode = scope.dialCode;
                             scope.phone = '';
                         });
@@ -450,7 +452,7 @@ angular.module('intlpnIonic', ['ionic'])
         replace:true,
         template: '<div class="item item-input intlpn-container">' +
                         '<i class="icon icon-intlpn-flag {{ isocode }}" ng-click="pickCountry()" ></i>'+
-                        '<input intlpn-formatter national-mode="nationalMode" iso-code="{{isocode}}" type="tel" placeholder="{{placeholder||\'test\'}}" ng-model="phone" >' +
+                        '<input intlpn-formatter national-mode="nationalMode" iso-code="{{isocode}}" type="tel" placeholder="{{placeholder||\'Phone number\'}}" ng-model="phone" >' +
                 '</div>'
     };
 }])
