@@ -404,7 +404,7 @@ angular.module('intlpnIonic', ['ionic'])
                             '<i class="icon ion-close-circled placeholder-icon" ng-show="modalScope.pattern" ng-click="modalScope.pattern=\'\'"></i>' +
                         '</div>' +
                     '</div>' +
-                 '<ion-content class="has-header" ng-class="(modalScope.countries.length > 10)?\'has-subheader\':\'\'">' +
+                 '<ion-content class="has-header" scroll="true" ng-class="(modalScope.countries.length > 10)?\'has-subheader\':\'\'">' +
                     '<ion-list>' +
                         '<ion-item collection-repeat="country in modalScope.countries | filter:modalScope.pattern" item-height="55px" item-width="100%"' +
                             'ng-click="modalScope.selectCountry( country )" ' +
