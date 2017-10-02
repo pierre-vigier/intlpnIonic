@@ -97,7 +97,7 @@ angular.module('intlpnIonic', ['ionic'])
             } else {
                 self.countries = allCountries;
             }
-            for (i = 0; i < self.countries.length; i++) {
+            for (var i = 0; i < self.countries.length; i++) {
                   var c = self.countries[i];
                   self._addCountryCode(c.iso2, c.dialCode, c.priority);
                   // area codes
