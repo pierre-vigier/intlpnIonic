@@ -1,5 +1,9 @@
 'use strict';
 
+require('../lib/libphonenumber/build/utils');
+var allCountries = require('./data');
+
+
 var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
     var self = $scope;
     self.intlpnHelper = intlpnUtils.getHelper( self.onlyCountry);

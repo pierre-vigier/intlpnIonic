@@ -1,0 +1,19 @@
+{
+  "name": "intl-pn-ionic",
+  "version": "1.9.0",
+  "description": "Simple version of intl-phone number input for Ionic",
+  "main": "js/intlpnIonic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmorgalocabal/intlpnIonic.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mmorgalocabal/intlpnIonic/issues"
+  },
+  "homepage": "https://github.com/mmorgalocabal/intlpnIonic#readme"
+}
