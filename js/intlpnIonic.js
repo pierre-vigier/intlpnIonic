@@ -408,11 +408,11 @@ angular.module('intlpnIonic', ['ionic'])
                                 '<i class="icon ion-close-circled placeholder-icon" ng-show="modalScope.pattern" ng-click="modalScope.clearPattern()"></i>' +
                             '</div>' +
                         '</div>' +
-                        '<ion-content class="has-subheader">' +
+                        '<ion-content class="has-subheader intl-pn-ionic-country-container">' +
                             '<ion-list>' +
-                                '<ion-item ng-repeat="country in modalScope.countries" style="{height: 55px; width: 100%}"' +
+                                '<ion-item ng-repeat="country in modalScope.countries"' +
                                     'ng-click="modalScope.selectCountry( country )" ' +
-                                    'class="item-icon-left" ng-class="(country.iso2 == modalScope.currentCountry)?\'item-icon-right\':\'\'">' +
+                                    'class="item-icon-left intl-pn-ionic-country-item" ng-class="(country.iso2 == modalScope.currentCountry)?\'item-icon-right\':\'\'">' +
                                         '<i class="icon icon-intlpn-flag {{:: country.iso2}}" ></i>' +
                                         '{{:: country.name}}' +
                                         '<i class="icon ion-ios-checkmark-empty" ng-if="(country.iso2 == modalScope.currentCountry)"></i>' +
