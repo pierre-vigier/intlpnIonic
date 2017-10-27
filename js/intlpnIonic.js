@@ -268,10 +268,20 @@ angular.module('intlpnIonic', ['ionic'])
                 boxHeaderTitle: '@',
                 searchPlaceholder: '@',
                 countryIsoCode: '=?',
-                countryDialCode: '=?'
+                countryDialCode: '=?',
+                focusOnLoad: '=?'
             },
             controller: intlpnCtrl,
             link:function (scope, element, attrs, ngModelCtrl) {
+                var input = element.find('input');
+
+                //Set focus to the input at the beginning if param is present
+                if (scope.focusOnLoad === true) {
+                    $timeout(function() {
+                        input[0].focus();
+                    }, 500);
+                }
+
                 //When model value (outside world) is updated, set the view value (in ngModel directive)
                 ngModelCtrl.$formatters.push(function(modelValue) {
                     //from raw value to formatted value, parenthesis, dash, ...
@@ -362,8 +372,8 @@ angular.module('intlpnIonic', ['ionic'])
                         return scope.isValid( modelValue );
                     }
                 };
+
                 //manage focus/blur of the phone field
-                var input = element.find('input');
                 input.bind('focus', function() {
                     if( scope.national ) {
                     } else {
@@ -397,28 +407,28 @@ angular.module('intlpnIonic', ['ionic'])
                         }
                     });
                 var modalTemplate = '<ion-modal-view>' +
-                        '<ion-header-bar class="'+scope.boxHeaderClass+'">' + //need to have the class before creation
-                            '<h1 class="title" ng-bind=":: modalScope.boxHeaderTitle"></h1>' +
-                            '<button class="button button-clear icon ion-ios-close-empty" ng-click="modalScope.close()"></button>' +
-                        '</ion-header-bar>' +
-                        '<div class="bar bar-subheader item-input-inset">' +
-                            '<div class="item-input-wrapper">' +
-                                '<i class="icon ion-ios-search placeholder-icon"></i>' +
-                                '<input type="text" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="{{:: modalScope.searchPlaceholder}}" ng-model="modalScope.pattern" ng-change="modalScope.updateResults(modalScope.pattern)">' +
-                                '<i class="icon ion-close-circled placeholder-icon" ng-show="modalScope.pattern" ng-click="modalScope.clearPattern()"></i>' +
-                            '</div>' +
-                        '</div>' +
-                        '<ion-content class="has-subheader intl-pn-ionic-country-container">' +
-                            '<ion-list>' +
-                                '<ion-item ng-repeat="country in modalScope.countries"' +
-                                    'ng-click="modalScope.selectCountry( country )" ' +
-                                    'class="item-icon-left intl-pn-ionic-country-item" ng-class="(country.iso2 == modalScope.currentCountry)?\'item-icon-right\':\'\'">' +
-                                        '<i class="icon icon-intlpn-flag {{:: country.iso2}}" ></i>' +
-                                        '{{:: country.name}}' +
-                                        '<i class="icon ion-ios-checkmark-empty" ng-if="(country.iso2 == modalScope.currentCountry)"></i>' +
-                                '</ion-item>' +
-                            '</ion-list>' +
-                        '</ion-content>' +
+                    '<ion-header-bar class="'+scope.boxHeaderClass+'">' + //need to have the class before creation
+                    '<h1 class="title" ng-bind=":: modalScope.boxHeaderTitle"></h1>' +
+                    '<button class="button button-clear icon ion-ios-close-empty" ng-click="modalScope.close()"></button>' +
+                    '</ion-header-bar>' +
+                    '<div class="bar bar-subheader item-input-inset">' +
+                    '<div class="item-input-wrapper">' +
+                    '<i class="icon ion-ios-search placeholder-icon"></i>' +
+                    '<input type="text" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="{{:: modalScope.searchPlaceholder}}" ng-model="modalScope.pattern" ng-change="modalScope.updateResults(modalScope.pattern)">' +
+                    '<i class="icon ion-close-circled placeholder-icon" ng-show="modalScope.pattern" ng-click="modalScope.clearPattern()"></i>' +
+                    '</div>' +
+                    '</div>' +
+                    '<ion-content class="has-subheader intl-pn-ionic-country-container">' +
+                    '<ion-list>' +
+                    '<ion-item ng-repeat="country in modalScope.countries"' +
+                    'ng-click="modalScope.selectCountry( country )" ' +
+                    'class="item-icon-left intl-pn-ionic-country-item" ng-class="(country.iso2 == modalScope.currentCountry)?\'item-icon-right\':\'\'">' +
+                    '<i class="icon icon-intlpn-flag {{:: country.iso2}}" ></i>' +
+                    '{{:: country.name}}' +
+                    '<i class="icon ion-ios-checkmark-empty" ng-if="(country.iso2 == modalScope.currentCountry)"></i>' +
+                    '</ion-item>' +
+                    '</ion-list>' +
+                    '</ion-content>' +
                     '</ion-modal-view>';
                 scope.modalScope = {
                     selectCountry: function( country ) {
