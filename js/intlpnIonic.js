@@ -375,15 +375,23 @@ angular.module('intlpnIonic', ['ionic', 'ionic_filter_bar'])
                 };
 
                 //manage focus/blur of the phone field
-                input.bind('focus', function() {
-                    if( scope.national ) {
+                input.bind('focus', function () {
+                    // Reset validation
+                    if (!ngModelCtrl.$valid) {
+                        Object.keys(ngModelCtrl.$error).forEach(function (validationRule) {
+                            //Passing undefined resets the input's validation to a pending state
+                            ngModelCtrl.$setValidity(validationRule, undefined);
+                        });
+                    }
+
+                    if (scope.national) {
                     } else {
-                        if( !scope.phone ) {
-                            scope.$apply(function() {
-                                if( scope.dialCode ) {
+                        if (!scope.phone) {
+                            scope.$apply(function () {
+                                if (scope.dialCode) {
                                     scope.phone = scope.dialCode;
                                     scope.countryDialCode = scope.dialCode;
-                                    input[0].setSelectionRange(scope.dialCode.length, scope.dialCode.length );
+                                    input[0].setSelectionRange(scope.dialCode.length, scope.dialCode.length);
                                 }
                             });
                         }
