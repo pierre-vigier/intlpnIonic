@@ -1,6 +1,7 @@
 'use strict';
 
 require('../lib/libphonenumber/build/utils');
+require('../lib/ionic-filter-bar/dist/ionic.filter.bar');
 var allCountries = require('./data');
 
 
@@ -66,7 +67,7 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
 
 intlpnCtrl.$inject = ['$ionicModal', '$scope', 'intlpnUtils'];
 
-angular.module('intlpnIonic', ['ionic'])
+angular.module('intlpnIonic', ['ionic', 'ionic_filter_bar'])
     .service('intlpnUtils', function() {
         var intlpnUtilsHelper = function( onlyCountry) {
             var self = this;
@@ -254,7 +255,7 @@ angular.module('intlpnIonic', ['ionic'])
             }
         }
     })
-    .directive('intlpn',  ['$ionicModal', '$timeout', '$ionicScrollDelegate', function( $ionicModal, $timeout, $ionicScrollDelegate ) {
+    .directive('intlpn',  ['$ionicModal', '$timeout', '$ionicScrollDelegate', '$ionicFilterBar', function( $ionicModal, $timeout, $ionicScrollDelegate, $ionicFilterBar ) {
         return {
             restrict: 'E',
             require: '^ngModel',
@@ -408,16 +409,10 @@ angular.module('intlpnIonic', ['ionic'])
                     });
                 var modalTemplate = '<ion-modal-view>' +
                     '<ion-header-bar class="'+scope.boxHeaderClass+'">' + //need to have the class before creation
-                    '<h1 class="title" ng-bind=":: modalScope.boxHeaderTitle"></h1>' +
                     '<button class="button button-clear icon ion-ios-close-empty" ng-click="modalScope.close()"></button>' +
+                    '<h1 class="title" ng-bind=":: modalScope.boxHeaderTitle"></h1>' +
+                    '<button class="button button-icon button-clear ion-ios-search" ng-click="modalScope.showSearch()"></button>' +
                     '</ion-header-bar>' +
-                    '<div class="bar bar-subheader item-input-inset">' +
-                    '<div class="item-input-wrapper">' +
-                    '<i class="icon ion-ios-search placeholder-icon"></i>' +
-                    '<input type="text" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="{{:: modalScope.searchPlaceholder}}" ng-model="modalScope.pattern" ng-change="modalScope.updateResults(modalScope.pattern)">' +
-                    '<i class="icon ion-close-circled placeholder-icon" ng-show="modalScope.pattern" ng-click="modalScope.clearPattern()"></i>' +
-                    '</div>' +
-                    '</div>' +
                     '<ion-content class="has-subheader intl-pn-ionic-country-container">' +
                     '<ion-list>' +
                     '<ion-item ng-repeat="country in modalScope.countries"' +
@@ -435,26 +430,29 @@ angular.module('intlpnIonic', ['ionic'])
                         scope.isocode = country.iso2;
                         scope.countryIsoCode = scope.isocode;
                         scope._updateDialCode( country.dialCode );
-                        scope.modal.hide();
-                        $timeout(function() { input[0].focus();});
+                        scope.modalScope.close();
+                        $timeout(function() { input[0].focus();}, 100);
                     },
                     close: function() {
+                        if (scope.modalScope.cancelFilter) {
+                            scope.modalScope.cancelFilter();
+                            scope.modalScope.cancelFilter = null;
+                        }
                         scope.modal.hide();
                     },
-                    clearPattern: function () {
-                        scope.modalScope.pattern = '';
-                        scope.modalScope.updateResults();
-                    },
-                    updateResults: function(pattern) {
-                        if (pattern) {
-                            scope.modalScope.countries = scope.intlpnHelper.countries.filter(function(country) {
-                                return country.name.toLowerCase().indexOf(pattern.toLowerCase()) !== -1;
-                            });
-                        } else {
-                            scope.modalScope.countries = scope.intlpnHelper.countries;
-                        }
-
-                        $ionicScrollDelegate.scrollTop(true);
+                    showSearch: function () {
+                        scope.modalScope.cancelFilter = $ionicFilterBar.show({
+                            items: scope.intlpnHelper.countries,
+                            update: function(items, exp ) {
+                                scope.modalScope.countries = items;
+                                $ionicScrollDelegate.scrollTop(true);
+                            },
+                            expression: function(filterText, value ) {
+                                return value.name.indexOf(filterText) != -1;
+                            },
+                            debounce: true,
+                            delay: 100
+                        });
                     },
                     countries: scope.intlpnHelper.countries,
                     boxHeaderTitle: scope.boxHeaderTitle,
@@ -466,7 +464,6 @@ angular.module('intlpnIonic', ['ionic'])
                 scope.pickCountry = function() {
                     if( scope.intlpnHelper.countries.length == 1 )
                         return;
-                    scope.modalScope.pattern = '';
                     scope.modalScope.currentCountry = scope.isocode;
                     scope.modalScope.countries= scope.intlpnHelper.countries;
                     scope.modalScope.boxHeaderTitle= scope.boxHeaderTitle;
