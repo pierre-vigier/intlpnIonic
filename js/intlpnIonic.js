@@ -17,7 +17,7 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
     self.boxHeaderTitle = angular.isDefined(self.boxHeaderTitle )?self.boxHeaderTitle:"Search";
     self.searchPlaceholder = angular.isDefined( self.searchPlaceholder )?self.searchPlaceholder:self.boxHeaderTitle;
 
-    self._updateDialCode = function(newDialCode) {
+    self._updateDialCode = function(newDialCode, newIsoCode) {
         var newNumber;
 
         // save having to pass this every time
@@ -34,7 +34,6 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
                     newNumber = self.phone.replace(prevDialCode, newDialCode);
                 } else {
                     // if the previous number didn't contain a dial code, we should persist it
-                    // XXX: remove jquery
                     var existingNumber = (self.phone.charAt(0) != "+") ? self.phone.trim() : "";
                     newNumber = newDialCode + existingNumber;
                 }
@@ -42,7 +41,7 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
                 newNumber = newDialCode;
             }
 
-            self.phone = newNumber;
+            self.phone = intlTelInputUtils.formatNumber(newNumber, newIsoCode, intlTelInputUtils.numberFormat.INTERNATIONAL);
         }
         self.dialCode = newDialCode;
         self.countryDialCode = self.dialCode;
@@ -197,6 +196,30 @@ angular.module('intlpnIonic', ['ionic', 'ionic_filter_bar'])
                     national = true;
                 }
 
+                element.on("keydown keypress paste", function (){
+                    var formattedValue = "";
+
+                    if (element.val()) {
+                        if (national) {
+                            formattedValue = intlTelInputUtils.formatNumber(element.val(), scope.isoCode, intlTelInputUtils.numberFormat.NATIONAL);
+                        } else {
+                            formattedValue = intlTelInputUtils.formatNumber(element.val(), scope.isoCode, intlTelInputUtils.numberFormat.INTERNATIONAL);
+                        }
+                    }
+
+                    element.val(formattedValue);
+                    ngModelController.$setViewValue(formattedValue);
+                    return true;
+                });
+
+                element.on("keyup", function() {
+                    // Guarantee that there is always '+' at the beginning
+                    if (!element.val()) {
+                        element.val('+');
+                        ngModelController.$setViewValue(element.val());
+                    }
+                });
+
                 function clean(x) {
                     //remove letters
                     x = x.replace(/[^0-9\- +()]/g,'');
@@ -222,34 +245,7 @@ angular.module('intlpnIonic', ['ionic', 'ionic_filter_bar'])
                         }
                     }
                     var cleaned = clean(val);
-
-                    // Avoid infinite loop of $setViewValue <-> $parsers
-                    var newStart = cleaned.length;
-                    var start = el.selectionStart + offset;
-                    var end = el.selectionEnd + offset;
-                    var selectionLength = end - start;
-                    var digitsOnTheRight = 0;
-                    for( var i = val.length; i >= start; i-- ) {
-                        if( /^\d$/.test( val.charAt(i) ) ) {
-                            digitsOnTheRight ++;
-                        }
-                    }
-                    while( digitsOnTheRight > 0 && newStart > 0 ) {
-                        if( /^\d$/.test( cleaned.charAt( newStart - 1 ) ) ) {
-                            digitsOnTheRight--;
-                        }
-                        newStart--;
-                    }
-                    //move to the left while space
-                    while(  /^[^0-9+]$/.test( cleaned.charAt( newStart - 1 ) ) && newStart > 0 )
-                        newStart--;
-                    // element.val(cleaned) does not behave with
-                    // repeated invalid elements
-                    ngModelController.$setViewValue(cleaned);
-                    ngModelController.$render();
-                    el.setSelectionRange(newStart, newStart);
                     return cleaned;
-                    //return val;
                 });
 
             }
@@ -437,7 +433,7 @@ angular.module('intlpnIonic', ['ionic', 'ionic_filter_bar'])
                     selectCountry: function( country ) {
                         scope.isocode = country.iso2;
                         scope.countryIsoCode = scope.isocode;
-                        scope._updateDialCode( country.dialCode );
+                        scope._updateDialCode( country.dialCode, scope.isocode );
                         scope.modalScope.close();
                         $timeout(function() { input[0].focus();}, 100);
                     },
