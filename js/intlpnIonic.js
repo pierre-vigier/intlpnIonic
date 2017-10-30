@@ -67,6 +67,10 @@ var intlpnCtrl = function( $ionicModal, $scope, intlpnUtils ) {
 intlpnCtrl.$inject = ['$ionicModal', '$scope', 'intlpnUtils'];
 
 angular.module('intlpnIonic', ['ionic', 'ionic_filter_bar'])
+    .config(['$ionicFilterBarConfigProvider', function($ionicFilterBarConfigProvider){
+        ionic.Platform.isAndroid() ?
+            $ionicFilterBarConfigProvider.theme('positive') : $ionicFilterBarConfigProvider.theme('light');
+    }])
     .service('intlpnUtils', function() {
         var intlpnUtilsHelper = function( onlyCountry) {
             var self = this;
