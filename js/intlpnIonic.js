@@ -200,28 +200,22 @@ angular.module('intlpnIonic', ['ionic', 'ionic_filter_bar'])
                     national = true;
                 }
 
-                element.on("keydown keypress paste", function (){
-                    var formattedValue = "";
-
-                    if (element.val()) {
+                element.on("keyup paste", function() {
+                    // Guarantee that there is always '+' at the beginning
+                    if (!element.val()) {
+                        element.val('+');
+                    } else {
+                        var formattedValue = '';
                         if (national) {
                             formattedValue = intlTelInputUtils.formatNumber(element.val(), scope.isoCode, intlTelInputUtils.numberFormat.NATIONAL);
                         } else {
                             formattedValue = intlTelInputUtils.formatNumber(element.val(), scope.isoCode, intlTelInputUtils.numberFormat.INTERNATIONAL);
                         }
+
+                        element.val(formattedValue);
                     }
 
-                    element.val(formattedValue);
-                    ngModelController.$setViewValue(formattedValue);
-                    return true;
-                });
-
-                element.on("keyup", function() {
-                    // Guarantee that there is always '+' at the beginning
-                    if (!element.val()) {
-                        element.val('+');
-                        ngModelController.$setViewValue(element.val());
-                    }
+                    ngModelController.$setViewValue(element.val());
                 });
 
                 function clean(x) {
