@@ -304,9 +304,9 @@ angular.module('intlpnIonic', ['ionic', 'ionic_filter_bar'])
                     scope.isocode = scope.intlpnHelper.getFlagFromNumber( ngModelCtrl.$viewValue );
                     scope.countryIsoCode = scope.isocode;
                     if( scope.national ) {
-                        scope.phone = intlTelInputUtils.formatNumberByType(ngModelCtrl.$viewValue,scope.isocode,intlTelInputUtils.numberFormat.NATIONAL);
+                        scope.phone = intlTelInputUtils.formatNumber(ngModelCtrl.$viewValue, scope.isocode, intlTelInputUtils.numberFormat.NATIONAL);
                     } else {
-                        scope.phone = ngModelCtrl.$viewValue;
+                        scope.phone = intlTelInputUtils.formatNumber(ngModelCtrl.$viewValue, scope.isoCode, intlTelInputUtils.numberFormat.INTERNATIONAL);
                     }
                 };
                 //from  view value (in ngModel directive) to model value (outside world)
