@@ -357,6 +357,13 @@ angular.module('intlpnIonic', ['ionic', 'jett.ionic.filter.bar'])
                         scope.countryDialCode = scope.dialCode;
                     }
                 });
+                scope.$watch('onlyCountry', function(newValue, oldValue) {
+                    if (!newValue)
+                        return;
+                    scope.intlpnHelper.countries = [];
+                    scope.intlpnHelper.onlyCountry = newValue;
+                    scope.intlpnHelper._initCountries();
+                });
                 ngModelCtrl.$validators.validForm = function( modelValue, viewValue ) {
                     //check if the cleaned value is correct
                     if( scope.national ) {
