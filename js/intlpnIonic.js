@@ -211,7 +211,9 @@ angular.module('intlpnIonic', ['ionic', 'jett.ionic.filter.bar'])
                         } else {
                             formattedValue = intlTelInputUtils.formatNumber(element.val(), scope.isoCode, intlTelInputUtils.numberFormat.INTERNATIONAL);
                         }
-
+                        
+                        formattedValue = formattedValue.replace(/[a-zA-Z]/g,'');
+                        
                         element.val(formattedValue);
                     }
 
