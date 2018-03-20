@@ -1241,7 +1241,5 @@ for (var i = 0; i < allCountries.length; i++) {
 
 if (typeof module === 'object' && module.exports) {
   module.exports = allCountries;
-} else {
-  root.allCountries = allCountries;
 }
 

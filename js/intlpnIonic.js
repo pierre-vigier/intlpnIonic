@@ -2,7 +2,6 @@
 
 if (typeof module === 'object' && module.exports) {
     require('../lib/libphonenumber/build/utils');
-    require('../lib/ionic-filter-bar/dist/ionic.filter.bar');
     var allCountries = require('./data');
 }
 

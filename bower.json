@@ -12,5 +12,8 @@
     "./img/intlpn-flags.png",
     "./lib/libphonenumber/build/utils.js"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "ionic-filter-bar": "^1.1.1"
+  }
 }

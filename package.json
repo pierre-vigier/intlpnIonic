@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mmorgalocabal/intlpnIonic/issues"
   },
+  "dependencies": {
+    "ionic-filter-bar": "^1.1.1"
+  },
   "homepage": "https://github.com/mmorgalocabal/intlpnIonic#readme"
 }
