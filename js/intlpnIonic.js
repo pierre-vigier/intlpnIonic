@@ -206,13 +206,13 @@ angular.module('intlpnIonic', ['ionic', 'jett.ionic.filter.bar'])
                         element.val('+');
                     } else {
                         var formattedValue = '';
+                        var val = element.val().replace(/[a-zA-Z]/g,'');
+
                         if (national) {
-                            formattedValue = intlTelInputUtils.formatNumber(element.val(), scope.isoCode, intlTelInputUtils.numberFormat.NATIONAL);
+                            formattedValue = intlTelInputUtils.formatNumber(val, scope.isoCode, intlTelInputUtils.numberFormat.NATIONAL);
                         } else {
-                            formattedValue = intlTelInputUtils.formatNumber(element.val(), scope.isoCode, intlTelInputUtils.numberFormat.INTERNATIONAL);
+                            formattedValue = intlTelInputUtils.formatNumber(val, scope.isoCode, intlTelInputUtils.numberFormat.INTERNATIONAL);
                         }
-                        
-                        formattedValue = formattedValue.replace(/[a-zA-Z]/g,'');
                         
                         element.val(formattedValue);
                     }
