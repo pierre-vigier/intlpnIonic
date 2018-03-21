@@ -459,7 +459,7 @@ angular.module('intlpnIonic', ['ionic', 'jett.ionic.filter.bar'])
                                 $ionicScrollDelegate.scrollTop(true);
                             },
                             expression: function(filterText, value ) {
-                                return value.name.indexOf(filterText) != -1;
+                                return value.name.toLowerCase().indexOf(filterText.toLowerCase()) != -1;
                             },
                             debounce: true,
                             delay: 100
