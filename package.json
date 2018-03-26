@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmorgalocabal/intlpnIonic.git"
+    "url": "git+https://github.com/pierre-vigier/intlpnIonic.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mmorgalocabal/intlpnIonic/issues"
+    "url": "https://github.com/pierre-vigier/intlpnIonic/issues"
   },
   "dependencies": {
     "ionic-filter-bar": "^1.1.1"
   },
-  "homepage": "https://github.com/mmorgalocabal/intlpnIonic#readme"
+  "homepage": "https://github.com/pierre-vigier/intlpnIonic#readme"
 }
