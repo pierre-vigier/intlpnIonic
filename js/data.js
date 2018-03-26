@@ -1238,3 +1238,8 @@ for (var i = 0; i < allCountries.length; i++) {
     areaCodes: c[4] || null
   };
 }
+
+if (typeof module === 'object' && module.exports) {
+  module.exports = allCountries;
+}
+

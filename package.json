@@ -1,0 +1,22 @@
+{
+  "name": "intl-pn-ionic",
+  "version": "0.2.3",
+  "description": "Simple version of intl-phone number input for Ionic",
+  "main": "js/intlpnIonic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pierre-vigier/intlpnIonic.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pierre-vigier/intlpnIonic/issues"
+  },
+  "dependencies": {
+    "ionic-filter-bar": "^1.1.1"
+  },
+  "homepage": "https://github.com/pierre-vigier/intlpnIonic#readme"
+}
