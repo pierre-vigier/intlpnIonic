@@ -424,7 +424,7 @@ angular.module('intlpnIonic', ['ionic', 'jett.ionic.filter.bar'])
                     '<h1 class="title" ng-bind=":: modalScope.boxHeaderTitle"></h1>' +
                     '<button class="button button-icon button-clear ion-ios-search" ng-click="modalScope.showSearch()"></button>' +
                     '</ion-header-bar>' +
-                    '<ion-content class="has-subheader intl-pn-ionic-country-container">' +
+                    '<ion-content class="intl-pn-ionic-country-container">' +
                     '<ion-list>' +
                     '<ion-item ng-repeat="country in modalScope.countries"' +
                     'ng-click="modalScope.selectCountry( country )" ' +
