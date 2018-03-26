@@ -11,12 +11,13 @@ There is as well a filter to format a number in either international or national
 ## Getting Started
 1. Install the requirements
  ```bash
- bower install https://github.com/pierre-vigier/intlpnIonic.git#0.1.12 --save
+ bower install https://github.com/pierre-vigier/intlpnIonic.git --save
  ```
 
 2. Link the stylesheet
   ```html
   <link rel="stylesheet" href="path/to/intlpn.css">
+  <link rel="stylesheet" href="path/to/ionic-filter-bar/dist/ionic.filter.bar.css">
   ```
 
 3. Add the javascripts
@@ -24,6 +25,7 @@ There is as well a filter to format a number in either international or national
   <script src="path/to/intlpnIonic.js"></script>
   <script src="path/to/data.js"></script>
   <script src="path/to/lib/libphonenumber/build/utils.js"></script>
+  <script src="path/to/ionic-filter-bar/dist/ionic.filter.bar.js"></script>
   ```
 
 4. load the directive and use it
